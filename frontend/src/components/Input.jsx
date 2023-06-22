@@ -1,8 +1,8 @@
-function Input({ id, value, ph, onChange }) {
+function Input({ type, id, value, ph, onChange }) {
 	return (
 		<div className="form-group">
 			<input
-				type="text"
+				type={type}
 				className="form-control"
 				id={id}
 				name={id}
