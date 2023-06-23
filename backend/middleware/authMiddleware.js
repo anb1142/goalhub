@@ -4,7 +4,6 @@ const asyncHandler = require("express-async-handler");
 
 const protect = asyncHandler(async (req, res, next) => {
 	let token;
-	console.log(req);
 	const auth = req.headers.authorization;
 	if (auth && auth.startsWith("Bearer")) {
 		try {
@@ -13,7 +12,6 @@ const protect = asyncHandler(async (req, res, next) => {
 			req.user = await User.findById(decoded.id).select("-password");
 			next();
 		} catch (error) {
-			console.log(error);
 			res.status(401);
 			throw new Error("Not authorized");
 		}
