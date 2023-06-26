@@ -32,7 +32,7 @@ export const goalSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(createGoal.pending, (state, action) => {
+			.addCase(createGoal.pending, (state) => {
 				state.isLoading = true;
 			})
 			.addCase(createGoal.fulfilled, (state, action) => {
@@ -40,9 +40,8 @@ export const goalSlice = createSlice({
 					isLoading: false,
 					isError: false,
 					isSuccess: true,
-					// goals: [...goals, action.payload],
+					goals: [...state.goals, action.payload],
 				});
-				state.goals.push(action.payload);
 			})
 			.addCase(createGoal.rejected, (state, action) => {
 				Object.assign(state, {
