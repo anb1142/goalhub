@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import {
 	ISignInRequestDto,
 	ISignInResponseDto,
+	ISignUpRequestDto,
 } from "../../services/auth/auth.type";
 import { useAppSelector } from "../hooks";
 import { IAuthState } from "./auth.type";
@@ -41,6 +42,7 @@ export const authSlice = createSlice({
 
 		// saga reducers
 		login: (_state, _action: PayloadAction<ISignInRequestDto>) => {},
+		register: (_state, _action: PayloadAction<ISignUpRequestDto>) => {},
 	},
 });
 

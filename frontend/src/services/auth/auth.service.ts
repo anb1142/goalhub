@@ -1,6 +1,10 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ISignInRequestDto, ISignInResponseDto } from "./auth.type";
+import {
+	ISignInRequestDto,
+	ISignInResponseDto,
+	ISignUpRequestDto,
+} from "./auth.type";
 const API_URL = "http://localhost:5000/api/users/";
 
 const save_cookie = (name: string, data: ISignInResponseDto) => {
@@ -15,6 +19,14 @@ const login = async (
 	return res;
 };
 
+const register = async (
+	userData: ISignUpRequestDto
+): Promise<ISignInResponseDto> => {
+	const res = await axios.post(API_URL, userData);
+	if (res.data) save_cookie("user", res.data);
+	return res;
+};
+
 const logout = () => {
 	Cookies.remove("user");
 };
@@ -22,6 +34,7 @@ const logout = () => {
 const authService = {
 	login,
 	logout,
+	register,
 };
 
 export default authService;

@@ -11,3 +11,9 @@ export type ISignInResponseDto = AxiosResponse<{
 	email: string;
 	token: string;
 }>;
+
+export interface ISignUpRequestDto {
+	name: string;
+	email: string;
+	password: string;
+}
