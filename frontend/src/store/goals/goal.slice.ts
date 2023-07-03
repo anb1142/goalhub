@@ -1,5 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IAddGoal, IGoalDto, IGoalsDto } from "../../services/goals/goal.type";
+import {
+	IAddGoal,
+	IGoalDto,
+	IGoalsDto,
+	IRemoveGoalDto,
+} from "../../services/goals/goal.type";
 import { IGoalsState } from "./goal.type";
 import { useAppSelector } from "../hooks";
 
@@ -23,6 +28,9 @@ export const goalSlice = createSlice({
 		pushGoal: (state, action: PayloadAction<IGoalDto["data"]>) => {
 			state.goals = [...state.goals, action.payload];
 		},
+		filterGoal: (state, action: PayloadAction<IRemoveGoalDto["data"]>) => {
+			state.goals = state.goals.filter((goal) => goal._id !== action.payload._id);
+		},
 		setMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 		},
@@ -36,6 +44,7 @@ export const goalSlice = createSlice({
 		//saga reducers
 		getGoals: (_state) => {},
 		createGoal: (_state, _action: PayloadAction<IAddGoal>) => {},
+		removeGoal: (_state, _action: PayloadAction<string>) => {},
 	},
 });
 
