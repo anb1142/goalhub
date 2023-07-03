@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { goalActions } from "../store/goals/goal.slice";
 import Input from "./Input";
 
 function GoalForm() {
@@ -10,7 +11,7 @@ function GoalForm() {
 	};
 	const onSubmit: React.FormEventHandler = (e) => {
 		e.preventDefault();
-		// dispatch(createGoal({ text }));
+		dispatch(goalActions.createGoal({ text }));
 		setText("");
 	};
 	return (

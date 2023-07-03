@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IGoalsDto } from "../../services/goals/goal.type";
+import { IAddGoal, IGoalDto, IGoalsDto } from "../../services/goals/goal.type";
 import { IGoalsState } from "./goal.type";
 import { useAppSelector } from "../hooks";
 
@@ -20,6 +20,9 @@ export const goalSlice = createSlice({
 		setGoals: (state, action: PayloadAction<IGoalsDto["data"]>) => {
 			state.goals = action.payload;
 		},
+		pushGoal: (state, action: PayloadAction<IGoalDto["data"]>) => {
+			state.goals = [...state.goals, action.payload];
+		},
 		setMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 		},
@@ -32,6 +35,7 @@ export const goalSlice = createSlice({
 
 		//saga reducers
 		getGoals: (_state) => {},
+		createGoal: (_state, _action: PayloadAction<IAddGoal>) => {},
 	},
 });
 
