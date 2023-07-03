@@ -1,11 +1,12 @@
-import axios from "axios";
 import Cookies from "js-cookie";
+import http from "../../utils/http";
 import {
 	ISignInRequestDto,
 	ISignInResponseDto,
 	ISignUpRequestDto,
 } from "./auth.type";
-const API_URL = "http://localhost:5000/api/users/";
+
+const API_URL = "/users/";
 
 const save_cookie = (name: string, data: ISignInResponseDto) => {
 	Cookies.set(name, JSON.stringify(data), { expires: 365, sameSite: "strict" });
@@ -14,7 +15,7 @@ const save_cookie = (name: string, data: ISignInResponseDto) => {
 const login = async (
 	userData: ISignInRequestDto
 ): Promise<ISignInResponseDto> => {
-	const res = await axios.post(API_URL + `login`, userData);
+	const res = await http.post(API_URL + `login`, userData);
 	if (res.data) save_cookie("user", res.data);
 	return res;
 };
@@ -22,7 +23,7 @@ const login = async (
 const register = async (
 	userData: ISignUpRequestDto
 ): Promise<ISignInResponseDto> => {
-	const res = await axios.post(API_URL, userData);
+	const res = await http.post(API_URL, userData);
 	if (res.data) save_cookie("user", res.data);
 	return res;
 };
