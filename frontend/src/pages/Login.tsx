@@ -3,8 +3,8 @@ import { FaSignInAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-import { authActions, useAuth } from "../store/auth/auth.slice";
 import Spinner from "../components/Spinner";
+import { authActions, useAuth } from "../store/auth/auth.slice";
 function Login() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Login() {
 			[e.target.name]: e.target.value,
 		}));
 	};
-	const handleSubmit: React.FormEventHandler = (e) => {
+	const onSubmit: React.FormEventHandler = (e) => {
 		e.preventDefault();
 		dispatch(authActions.login(formData));
 		navigate("/");
@@ -38,7 +38,7 @@ function Login() {
 				<p>Sign In</p>
 			</section>
 			<div className="form">
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={onSubmit}>
 					<Input
 						name="email"
 						type="email"
