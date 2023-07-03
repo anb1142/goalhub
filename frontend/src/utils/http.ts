@@ -11,7 +11,7 @@ const user: ISignInResponseDto["data"] = cookiedata
 const http = axios.create({
 	baseURL: "http://localhost:5000/api",
 	headers: {
-		Authorization: `Bearer ${user.token}`,
+		Authorization: `Bearer ${user ? user.token : ""}`,
 	},
 });
 
