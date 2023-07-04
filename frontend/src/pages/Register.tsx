@@ -22,8 +22,6 @@ function Register() {
 
 	const { user, isLoading, message } = useAuth();
 	useEffect(() => {
-		if (message !== "") toast.error(message);
-
 		if (user) {
 			navigate("/");
 		} else {

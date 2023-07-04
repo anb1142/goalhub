@@ -17,7 +17,7 @@ http.interceptors.request.use(
 			? JSON.parse(cookiedata)
 			: null;
 		try {
-			config.headers.Authorization = `Bearer ${user ? user.token : ""}`;
+			config.headers.Authorization = `Bearer ${user?.token ? user.token : ""}`;
 			return config;
 		} catch (error) {
 			throw error;
