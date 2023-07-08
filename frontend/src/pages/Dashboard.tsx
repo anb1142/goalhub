@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import GoalForm from "../components/GoalForm";
 import { useAuth } from "../store/auth/auth.slice";
 import Goals from "../components/Goals";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import AlignCenter from "../components/AlignCenter";
 
 function Dashboard() {
@@ -36,10 +36,14 @@ function Dashboard() {
 					Goals Dashboard
 				</Typography>
 				{user && (
-					<>
+					<Container
+						sx={{
+							width: { md: "50vh", xd: "95vw" },
+						}}
+					>
 						<GoalForm />
 						<Goals />
-					</>
+					</Container>
 				)}
 			</AlignCenter>
 		</>

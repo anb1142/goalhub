@@ -37,7 +37,7 @@ function GoalItem(props: { goal: IGoal }) {
 		if (!isLoading) setLoading({ done: false, delete: false });
 	}, [isLoading]);
 	return (
-		<Card sx={{ bgcolor: "#eee" }}>
+		<Card sx={{ width: "100%", bgcolor: "#eee" }}>
 			<Box
 				sx={{
 					display: "flex",
@@ -54,7 +54,7 @@ function GoalItem(props: { goal: IGoal }) {
 				>
 					{new Date(props.goal.createdAt).toISOString().substring(0, 10)}
 				</Typography>
-				<Box>
+				<Box sx={{ pt: 0.5 }}>
 					<GoalButton
 						color={!props.goal.done ? "green" : "gray"}
 						icon={!props.goal.done ? <DoneIcon /> : <CloseIcon />}

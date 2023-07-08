@@ -25,7 +25,7 @@ function GoalForm() {
 	return (
 		<Box
 			sx={{
-				width: { md: "50vh", xs: "95vw" },
+				width: "100%",
 				display: "flex",
 				justifyContent: "space-between",
 				alignItems: "center",
