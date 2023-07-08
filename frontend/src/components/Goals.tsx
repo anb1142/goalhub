@@ -5,6 +5,27 @@ import { goalActions, useGoals } from "../store/goals/goal.slice";
 import GoalItem from "./GoalItem";
 import { Collapse, Skeleton, Stack, Typography } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
+import { IGoals } from "../services/goals/goal.type";
+
+function GoalList(props: { goals: IGoals }) {
+	return (
+		<Stack width={{ md: "50vh", xd: "95vw" }}>
+			<TransitionGroup>
+				{props.goals.map((goal) => (
+					<Collapse
+						sx={{
+							mb: 2,
+						}}
+						key={goal._id}
+					>
+						<GoalItem goal={goal} />
+					</Collapse>
+				))}
+			</TransitionGroup>
+		</Stack>
+	);
+}
+
 function Goals() {
 	const dispatch = useDispatch();
 	const { goals, isLoading, fetched } = useGoals();
@@ -16,20 +37,10 @@ function Goals() {
 	return (
 		<>
 			{goals.length > 0 ? (
-				<Stack width={{ md: "50vh", xd: "95vw" }}>
-					<TransitionGroup>
-						{goals.map((goal) => (
-							<Collapse
-								sx={{
-									mb: 2,
-								}}
-								key={goal._id}
-							>
-								<GoalItem goal={goal} />
-							</Collapse>
-						))}
-					</TransitionGroup>
-				</Stack>
+				<>
+					<GoalList goals={goals.filter((goal) => !goal.done)} />
+					<GoalList goals={goals.filter((goal) => goal.done)} />
+				</>
 			) : !fetched && isLoading ? (
 				<>
 					{[...Array(4).keys()].map((_) => (

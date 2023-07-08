@@ -2,11 +2,12 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
 	IAddGoal,
 	IGoalDto,
+	IGoalIdDto,
 	IGoalsDto,
-	IRemoveGoalDto,
 } from "../../services/goals/goal.type";
-import { IGoalsState } from "./goal.type";
 import { useAppSelector } from "../hooks";
+import { IGoalsState } from "./goal.type";
+import { IGoalId } from "../../services/goals/goal.type";
 
 const initialState: IGoalsState = {
 	goals: [],
@@ -35,8 +36,12 @@ export const goalSlice = createSlice({
 		pushGoal: (state, action: PayloadAction<IGoalDto["data"]>) => {
 			state.goals = [action.payload, ...state.goals];
 		},
-		filterGoal: (state, action: PayloadAction<IRemoveGoalDto["data"]>) => {
+		filterGoal: (state, action: PayloadAction<IGoalIdDto["data"]>) => {
 			state.goals = state.goals.filter((goal) => goal._id !== action.payload._id);
+		},
+		setGoalTrue: (state, action: PayloadAction<IGoalIdDto["data"]>) => {
+			const i = state.goals.findIndex((goal) => goal._id === action.payload._id);
+			state.goals[i].done = !state.goals[i].done;
 		},
 		setMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
@@ -52,6 +57,7 @@ export const goalSlice = createSlice({
 		getGoals: (_state) => {},
 		createGoal: (_state, _action: PayloadAction<IAddGoal>) => {},
 		removeGoal: (_state, _action: PayloadAction<string>) => {},
+		markGoal: (_state, _action: PayloadAction<string>) => {},
 	},
 });
 

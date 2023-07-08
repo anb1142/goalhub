@@ -1,6 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
+import CloseIcon from "@mui/icons-material/Close";
 import {
 	Box,
 	Card,
@@ -55,11 +56,11 @@ function GoalItem(props: { goal: IGoal }) {
 				</Typography>
 				<Box>
 					<GoalButton
-						color="green"
-						icon={<DoneIcon />}
+						color={!props.goal.done ? "green" : "gray"}
+						icon={!props.goal.done ? <DoneIcon /> : <CloseIcon />}
 						loading={loading.done}
 						onClick={() => {
-							// dispatch(goalActions.completeGoal(props.goal._id));
+							dispatch(goalActions.markGoal(props.goal._id));
 							setLoading((prev) => ({
 								...prev,
 								done: true,
