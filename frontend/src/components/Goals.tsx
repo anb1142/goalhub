@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../store/auth/auth.slice";
 import { goalActions, useGoals } from "../store/goals/goal.slice";
 import GoalItem from "./GoalItem";
-import { Stack } from "@mui/material";
+import { Collapse, Skeleton, Stack, Typography } from "@mui/material";
+import { TransitionGroup } from "react-transition-group";
 function Goals() {
 	const dispatch = useDispatch();
-	const { goals } = useGoals();
+	const { goals, isLoading, fetched } = useGoals();
 	const { user } = useAuth();
-
 	useEffect(() => {
 		dispatch(goalActions.getGoals());
 	}, [user]);
@@ -16,19 +16,36 @@ function Goals() {
 	return (
 		<>
 			{goals.length > 0 ? (
-				<Stack
-					sx={{
-						pb: 5,
-					}}
-					width={{ md: "50vh", xd: "95vw" }}
-					spacing={2}
-				>
-					{goals.map((goal) => (
-						<GoalItem key={goal._id} goal={goal} />
-					))}
+				<Stack width={{ md: "50vh", xd: "95vw" }}>
+					<TransitionGroup>
+						{goals.map((goal) => (
+							<Collapse
+								sx={{
+									mb: 2,
+								}}
+								key={goal._id}
+							>
+								<GoalItem goal={goal} />
+							</Collapse>
+						))}
+					</TransitionGroup>
 				</Stack>
+			) : !fetched && isLoading ? (
+				<>
+					{[...Array(4).keys()].map((_) => (
+						<Skeleton
+							variant="rectangular"
+							sx={{
+								width: { md: "50vh", xd: "95vw" },
+								mb: 2,
+							}}
+							animation="wave"
+							height={120}
+						/>
+					))}
+				</>
 			) : (
-				<h3>You got no goals</h3>
+				<Typography>You got no goals</Typography>
 			)}
 		</>
 	);

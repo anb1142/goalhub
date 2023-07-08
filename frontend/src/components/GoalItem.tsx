@@ -1,21 +1,47 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Card, CardContent, IconButton, Typography } from "@mui/material";
+import {
+	Box,
+	Card,
+	CardContent,
+	CircularProgress,
+	IconButton,
+	Typography,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { IGoal } from "../services/goals/goal.type";
-import { goalActions } from "../store/goals/goal.slice";
+import { goalActions, useGoals } from "../store/goals/goal.slice";
+import { useEffect, useState } from "react";
+
+type GoalButtonProps = {
+	icon: React.ReactElement;
+	color: string;
+	loading: boolean;
+	onClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+function GoalButton(props: GoalButtonProps) {
+	return (
+		<IconButton sx={{ color: props.color }} onClick={props.onClick}>
+			{props.loading ? <CircularProgress size={24} color="inherit" /> : props.icon}
+		</IconButton>
+	);
+}
+
 function GoalItem(props: { goal: IGoal }) {
 	const dispatch = useDispatch();
+	const [loading, setLoading] = useState({ done: false, delete: false });
+	const { isLoading } = useGoals();
+	useEffect(() => {
+		if (!isLoading) setLoading({ done: false, delete: false });
+	}, [isLoading]);
 	return (
 		<Card sx={{ bgcolor: "#eee" }}>
 			<Box
 				sx={{
 					display: "flex",
 					justifyContent: "space-between",
-					// flexDirection: "column",
 					alignItems: "center",
-					height: "100%",
 					px: 1,
 				}}
 			>
@@ -27,34 +53,36 @@ function GoalItem(props: { goal: IGoal }) {
 				>
 					{new Date(props.goal.createdAt).toISOString().substring(0, 10)}
 				</Typography>
-				<Box
-					sx={{
-						display: "flex",
-						// alignItems: "center",
-						// justifyContent: "space-between",
-						// flexDirection: "column",
-						// mt: -2,
-						// mr: -2,
-					}}
-				>
-					<IconButton
-						sx={{ color: "green", display: "flex" }}
-						// onClick={() => dispatch(goalActions.completeGoal(props.goal._id))}
-					>
-						<DoneIcon />
-					</IconButton>
-					<IconButton
-						sx={{ color: "black" }}
-						// onClick={() => dispatch(goalActions.editGoal(props.goal._id))}
-					>
+				<Box>
+					<GoalButton
+						color="green"
+						icon={<DoneIcon />}
+						loading={loading.done}
+						onClick={() => {
+							// dispatch(goalActions.completeGoal(props.goal._id));
+							setLoading((prev) => ({
+								...prev,
+								done: true,
+							}));
+						}}
+					/>
+
+					<IconButton sx={{ color: "black" }}>
 						<EditIcon />
 					</IconButton>
-					<IconButton
-						sx={{ color: "#ff2424" }}
-						onClick={() => dispatch(goalActions.removeGoal(props.goal._id))}
-					>
-						<DeleteIcon />
-					</IconButton>
+
+					<GoalButton
+						color="#ff2424"
+						icon={<DeleteIcon />}
+						loading={loading.delete}
+						onClick={() => {
+							dispatch(goalActions.removeGoal(props.goal._id));
+							setLoading((prev) => ({
+								...prev,
+								delete: true,
+							}));
+						}}
+					/>
 				</Box>
 			</Box>
 			<CardContent>

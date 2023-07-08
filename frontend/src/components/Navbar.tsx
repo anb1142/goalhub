@@ -25,8 +25,8 @@ function Navbar() {
 	const { user } = useAuth();
 	const onLogout = () => {
 		dispatch(goalActions.reset());
-		authService.logout();
 		dispatch(authActions.reset());
+		authService.logout();
 		// navigate("/login");
 	};
 	return (

@@ -11,6 +11,7 @@ import { useAppSelector } from "../hooks";
 const initialState: IGoalsState = {
 	goals: [],
 	isLoading: false,
+	fetched: false,
 	message: "",
 };
 
@@ -24,9 +25,10 @@ export const goalSlice = createSlice({
 		},
 		setGoals: (state, action: PayloadAction<IGoalsDto["data"]>) => {
 			state.goals = action.payload;
+			state.fetched = true;
 		},
 		pushGoal: (state, action: PayloadAction<IGoalDto["data"]>) => {
-			state.goals = [...state.goals, action.payload];
+			state.goals = [action.payload, ...state.goals];
 		},
 		filterGoal: (state, action: PayloadAction<IRemoveGoalDto["data"]>) => {
 			state.goals = state.goals.filter((goal) => goal._id !== action.payload._id);

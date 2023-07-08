@@ -1,19 +1,27 @@
-import { Box, Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { goalActions } from "../store/goals/goal.slice";
+import { goalActions, useGoals } from "../store/goals/goal.slice";
 
 function GoalForm() {
 	const [text, setText] = useState("");
+	const [loading, setLoading] = useState(false);
+
 	const dispatch = useDispatch();
 	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		setText(e.target.value);
 	};
 	const onSubmit: React.FormEventHandler = (e) => {
 		e.preventDefault();
+		setLoading(true);
 		dispatch(goalActions.createGoal({ text }));
 		setText("");
 	};
+	const { isLoading } = useGoals();
+	useEffect(() => {
+		if (!isLoading) setLoading(false);
+	}, [isLoading]);
+
 	return (
 		<Box
 			sx={{
@@ -39,8 +47,9 @@ function GoalForm() {
 				type="submit"
 				sx={{ width: { md: "25%", sm: "15%", xs: "30%" } }}
 				variant="contained"
+				disabled={loading ? true : false}
 			>
-				Add Goal
+				{loading ? <CircularProgress size={27} color="inherit" /> : <>Add Goal</>}
 			</Button>
 		</Box>
 	);
