@@ -1,4 +1,4 @@
-import { IGoalIdDto } from "./../../services/goals/goal.type";
+import { IGoalIdDto, IUpdateGoal } from "./../../services/goals/goal.type";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { call, put, takeLatest } from "redux-saga/effects";
@@ -59,9 +59,23 @@ function* markGoal(action: PayloadAction<string>) {
 	}
 }
 
+function* updateGoal(action: PayloadAction<IUpdateGoal>) {
+	try {
+		yield put(goalActions.startLoading());
+		const res: IGoalDto = yield call(goalService.updateGoal, action.payload);
+		yield put(goalActions.editGoal(res.data));
+	} catch (error) {
+		if (error instanceof AxiosError && error.message)
+			yield put(goalActions.setMessage(error.message));
+	} finally {
+		yield put(goalActions.stopLoading());
+	}
+}
+
 export default function* goalWatcher() {
 	yield takeLatest(goalActions.getGoals, getGoals);
 	yield takeLatest(goalActions.markGoal, markGoal);
+	yield takeLatest(goalActions.updateGoal, updateGoal);
 	yield takeLatest(goalActions.createGoal, createGoal);
 	yield takeLatest(goalActions.removeGoal, removeGoal);
 }
