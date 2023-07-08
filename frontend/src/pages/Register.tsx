@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
-import Input from "../components/Input";
 
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Spinner from "../components/Spinner";
+import AlignCenter from "../components/AlignCenter";
+import SignForm from "../components/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
-
+import { Link, TextField } from "@mui/material";
 function Register() {
 	const [formData, setFormData] = useState({
 		name: "",
@@ -20,14 +19,11 @@ function Register() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { user, isLoading, message } = useAuth();
+	const { user, isLoading } = useAuth();
 	useEffect(() => {
-		if (user) {
-			navigate("/");
-		} else {
-			dispatch(authActions.reset());
-		}
-	}, [user, message, navigate, dispatch]);
+		if (!isLoading && user?.token) navigate("/");
+	}, [user, isLoading]);
+
 	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		setFormData((prev) => ({
 			...prev,
@@ -46,53 +42,51 @@ function Register() {
 		};
 		dispatch(authActions.register(userData));
 	};
-	if (isLoading) {
-		return <Spinner />;
-	}
+
 	return (
-		<>
-			<section className="heading">
-				<h1>
-					<FaUser /> Register
-				</h1>
-				<p>Please create an account</p>
-			</section>
-			<div className="form">
-				<form onSubmit={onSubmit}>
-					<Input
-						name="name"
-						type="text"
-						value={name}
-						placeholder={`Name`}
-						onChange={onChange}
-					/>
-					<Input
-						name="email"
-						type="email"
-						value={email}
-						placeholder={`Email`}
-						onChange={onChange}
-					/>
-					<Input
-						name="password"
-						type="password"
-						value={password}
-						placeholder={`Password`}
-						onChange={onChange}
-					/>
-					<Input
-						name="password2"
-						type="password"
-						value={password2}
-						placeholder={`Retype Password`}
-						onChange={onChange}
-					/>
-					<div className="form-group">
-						<button className="btn btn-block">Submit</button>
-					</div>
-				</form>
-			</div>
-		</>
+		<AlignCenter>
+			<SignForm
+				name={"Register"}
+				onSubmit={onSubmit}
+				reRouteText={"Already registered ? Login Here"}
+				reRouteTo="/login"
+			>
+				<TextField
+					margin="normal"
+					fullWidth
+					label="Name"
+					name="name"
+					value={name}
+					onChange={onChange}
+				/>
+				<TextField
+					margin="normal"
+					fullWidth
+					label="Email Address"
+					name="email"
+					value={email}
+					onChange={onChange}
+				/>
+				<TextField
+					margin="normal"
+					fullWidth
+					name="password"
+					label="Password"
+					type="password"
+					value={password}
+					onChange={onChange}
+				/>
+				<TextField
+					margin="normal"
+					fullWidth
+					name="password2"
+					label="Confirm Password"
+					type="password"
+					value={password2}
+					onChange={onChange}
+				/>
+			</SignForm>
+		</AlignCenter>
 	);
 }
 

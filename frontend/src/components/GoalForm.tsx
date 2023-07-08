@@ -1,7 +1,7 @@
+import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { goalActions } from "../store/goals/goal.slice";
-import Input from "./Input";
 
 function GoalForm() {
 	const [text, setText] = useState("");
@@ -15,21 +15,34 @@ function GoalForm() {
 		setText("");
 	};
 	return (
-		<section className="form">
-			<form onSubmit={onSubmit}>
-				<label htmlFor="text"></label>
-				<Input
-					type="text"
-					name="text"
-					value={text}
-					placeholder={`Text`}
-					onChange={onChange}
-				/>
-				<div className="form-group">
-					<button className="btn btn-block">Add Goal</button>
-				</div>
-			</form>
-		</section>
+		<Box
+			sx={{
+				width: { md: "50vh", xs: "95vw" },
+				display: "flex",
+				justifyContent: "space-between",
+				alignItems: "center",
+				py: { md: 5, xs: 3 },
+			}}
+			component={"form"}
+			onSubmit={onSubmit}
+		>
+			<TextField
+				fullWidth
+				label="Text"
+				name="text"
+				value={text}
+				onChange={onChange}
+				size="small"
+				sx={{ width: { md: "72%", sm: "82%", xs: "65%" } }}
+			/>
+			<Button
+				type="submit"
+				sx={{ width: { md: "25%", sm: "15%", xs: "30%" } }}
+				variant="contained"
+			>
+				Add Goal
+			</Button>
+		</Box>
 	);
 }
 
