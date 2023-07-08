@@ -21,7 +21,12 @@ export const goalSlice = createSlice({
 	reducers: {
 		//store reducers
 		reset: (state) => {
-			state = initialState;
+			Object.assign(state, {
+				goals: [],
+				isLoading: false,
+				fetched: false,
+				message: "",
+			});
 		},
 		setGoals: (state, action: PayloadAction<IGoalsDto["data"]>) => {
 			state.goals = action.payload;

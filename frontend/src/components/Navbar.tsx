@@ -24,14 +24,13 @@ function Navbar() {
 
 	const { user } = useAuth();
 	const onLogout = () => {
-		dispatch(goalActions.reset());
-		dispatch(authActions.reset());
 		authService.logout();
-		// navigate("/login");
+		dispatch(authActions.reset());
+		dispatch(goalActions.reset());
+		navigate("/login");
 	};
 	return (
 		<AppBar
-			// position="static"
 			component="nav"
 			sx={{
 				borderBottom: ".2vh solid #ccc",
