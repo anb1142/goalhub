@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { goalActions, useGoals } from "../store/goals/goal.slice";
 

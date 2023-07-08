@@ -1,10 +1,10 @@
+import { Container, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import GoalForm from "../components/GoalForm";
-import { useAuth } from "../store/auth/auth.slice";
-import Goals from "../components/Goals";
-import { Container, Typography } from "@mui/material";
 import AlignCenter from "../components/AlignCenter";
+import GoalForm from "../components/GoalForm";
+import Goals from "../components/Goals";
+import { useAuth } from "../store/auth/auth.slice";
 
 function Dashboard() {
 	const navigate = useNavigate();

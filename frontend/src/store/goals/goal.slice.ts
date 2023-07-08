@@ -7,7 +7,6 @@ import {
 } from "../../services/goals/goal.type";
 import { useAppSelector } from "../hooks";
 import { IGoalsState } from "./goal.type";
-import { IGoalId } from "../../services/goals/goal.type";
 
 const initialState: IGoalsState = {
 	goals: [],

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
+import { TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AlignCenter from "../components/AlignCenter";
 import SignForm from "../components/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
-import { Link, TextField } from "@mui/material";
 function Register() {
 	const [formData, setFormData] = useState({
 		name: "",
