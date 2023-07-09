@@ -83,7 +83,7 @@ function Goals() {
 						<Skeleton
 							variant="rectangular"
 							sx={{
-								width: { md: "50vh", xd: "95vw" },
+								width: "100%",
 								mb: 2,
 							}}
 							animation="wave"

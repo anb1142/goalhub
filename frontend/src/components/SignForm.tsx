@@ -15,16 +15,15 @@ function SignForm(props: SignFormProps) {
 			component="form"
 			className="signform"
 			onSubmit={props.onSubmit}
-			noValidate
 			sx={{
 				borderRadius: "2vh",
-				border: ".2vh solid #ccc",
-				padding: { md: 5, sm: 3, xs: 3 },
+				border: "1px solid #ccc",
+				padding: { lg: 4, md: 4, sm: 4, xs: 3 },
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
 				flexDirection: "column",
-				width: { md: "48vh", sm: "48vw", xs: "90vw" },
+				width: { lg: "48vh", md: "29vh", sm: "48vw", xs: "90vw" },
 			}}
 		>
 			<Typography

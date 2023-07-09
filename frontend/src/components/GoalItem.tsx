@@ -147,14 +147,13 @@ function GoalItem(props: { goal: IGoal }) {
 				onSubmit={editor}
 			>
 				<TextField
-					multiline
 					id={`${edit && "outlined-uncontrolled"}`}
 					label={edit && "Edit"}
 					size="small"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 					sx={{
-						width: edit ? "80%" : "100%",
+						width: edit ? { lg: "82%", xs: "78%" } : "100%",
 						"& fieldset": { border: `${!edit && "none"}` },
 						pointerEvents: `${!edit && "none"}`,
 						pb: 0,
@@ -163,7 +162,11 @@ function GoalItem(props: { goal: IGoal }) {
 					inputProps={{ spellcheck: "false" }}
 				/>
 				{edit && (
-					<Button variant="contained" type={"submit"} sx={{ width: "15%" }}>
+					<Button
+						variant="contained"
+						type={"submit"}
+						sx={{ width: { lg: "15%", xs: "20%" } }}
+					>
 						Edit
 					</Button>
 				)}

@@ -33,7 +33,7 @@ function Navbar() {
 		<AppBar
 			component="nav"
 			sx={{
-				borderBottom: ".2vh solid #ccc",
+				borderBottom: "1px solid #ccc",
 				bgcolor: "#fff",
 				boxShadow: "none",
 			}}
@@ -42,7 +42,7 @@ function Navbar() {
 				sx={{
 					display: "flex",
 					justifyContent: "space-between",
-					padding: { md: "0 5vh", sm: "0 4 vw", xs: "0 1vw" },
+					padding: { lg: "0 5vh", md: "0 10vw", sm: "0 6vw", xs: "0 1vw" },
 				}}
 			>
 				<NavLink to={user?.token ? "/" : window.location.pathname}>

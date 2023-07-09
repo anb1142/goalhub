@@ -15,6 +15,7 @@ function AlignCenter(props: {
 				flexDirection: "column",
 				mt: props.mt ? props.mt : 16,
 				width: "100%",
+				px: 0,
 			}}
 		>
 			{props.children}

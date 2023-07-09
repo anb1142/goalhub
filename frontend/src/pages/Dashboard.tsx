@@ -15,13 +15,13 @@ function Dashboard() {
 	}, [user, isLoading]);
 	return (
 		<>
-			<AlignCenter>
+			<AlignCenter mt={12}>
 				<Typography
 					component={"h1"}
 					variant="h1"
 					fontWeight={500}
 					sx={{
-						fontSize: { md: "6vh", sm: "8vw", xs: "12vw" },
+						fontSize: { lg: "6vh", md: "5.5vw", sm: "8vw", xs: "12vw" },
 					}}
 				>
 					Welcome {user && user.name}
@@ -30,7 +30,7 @@ function Dashboard() {
 					variant="subtitle1"
 					sx={{
 						color: "#666",
-						fontSize: { md: "2vh", sm: "4vw", xs: "6vw" },
+						fontSize: { lg: "2vh", md: "2.2vw", sm: "4vw", xs: "6vw" },
 					}}
 				>
 					Goals Dashboard
@@ -38,7 +38,8 @@ function Dashboard() {
 				{user && (
 					<Container
 						sx={{
-							width: { md: "50vh", xd: "95vw" },
+							px: 0,
+							width: { lg: "50vh", md: "45vw", sm: "60vw", xs: "92vw" },
 						}}
 					>
 						<GoalForm />
