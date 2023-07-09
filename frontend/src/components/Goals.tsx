@@ -92,7 +92,7 @@ function Goals() {
 					))}
 				</>
 			) : (
-				<Typography>You got no goals</Typography>
+				<Typography textAlign="center">You got no goals</Typography>
 			)}
 		</>
 	);
