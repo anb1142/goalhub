@@ -104,19 +104,21 @@ function GoalItem(props: { goal: IGoal }) {
 						}}
 					/>
 
-					<GoalButton
-						sx={{
-							color: "black",
-							borderRadius: "50%",
-							bgcolor: `${edit && "primary.main"}`,
-							"&:hover, &.Mui-focusVisible": {
+					{!props.goal.done && (
+						<GoalButton
+							sx={{
+								color: "black",
+								borderRadius: "50%",
 								bgcolor: `${edit && "primary.main"}`,
-							},
-						}}
-						icon={<EditIcon />}
-						loading={loading.edit}
-						onClick={() => setEdit((prev) => !prev)}
-					/>
+								"&:hover, &.Mui-focusVisible": {
+									bgcolor: `${edit && "primary.main"}`,
+								},
+							}}
+							icon={<EditIcon />}
+							loading={loading.edit}
+							onClick={() => setEdit((prev) => !prev)}
+						/>
+					)}
 					<GoalButton
 						color="#ff2424"
 						icon={<DeleteIcon />}
