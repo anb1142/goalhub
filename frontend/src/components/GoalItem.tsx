@@ -152,6 +152,7 @@ function GoalItem(props: { goal: IGoal }) {
 							sx={{
 								width: edit ? "80%" : "100%",
 								"& fieldset": { border: `${!edit && "none"}` },
+								pointerEvents: `${!edit && "none"}`,
 							}}
 							inputProps={{ spellcheck: "false" }}
 						/>
