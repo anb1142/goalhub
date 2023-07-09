@@ -45,7 +45,9 @@ function Goals() {
 	useEffect(() => {
 		dispatch(goalActions.getGoals());
 	}, [user]);
-
+	useEffect(() => {
+		if (done.length === 0) setOpen(false);
+	}, [done]);
 	return (
 		<>
 			{goals.length > 0 ? (
