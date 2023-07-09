@@ -9,7 +9,9 @@ import {
 	CardContent,
 	CircularProgress,
 	IconButton,
+	SxProps,
 	TextField,
+	Theme,
 	Typography,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -19,13 +21,17 @@ import { useEffect, useState } from "react";
 
 type GoalButtonProps = {
 	icon: React.ReactElement;
-	color: string;
+	sx?: SxProps<Theme>;
+	color?: string;
 	loading: boolean;
 	onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 function GoalButton(props: GoalButtonProps) {
 	return (
-		<IconButton sx={{ color: props.color }} onClick={props.onClick}>
+		<IconButton
+			sx={props.sx ? props.sx : { color: props.color }}
+			onClick={props.onClick}
+		>
 			{props.loading ? <CircularProgress size={24} color="inherit" /> : props.icon}
 		</IconButton>
 	);
@@ -33,26 +39,37 @@ function GoalButton(props: GoalButtonProps) {
 
 function GoalItem(props: { goal: IGoal }) {
 	const dispatch = useDispatch();
-	const [loading, setLoading] = useState({ done: false, delete: false });
+	const [loading, setLoading] = useState({
+		done: false,
+		edit: false,
+		delete: false,
+	});
 	const [edit, setEdit] = useState(false);
 	const [text, setText] = useState(props.goal.text);
 	const { isLoading } = useGoals();
 	useEffect(() => {
-		if (!isLoading) setLoading({ done: false, delete: false });
-		setText(props.goal.text);
+		if (!isLoading) {
+			setLoading({ done: false, edit: false, delete: false });
+			setEdit(false);
+			setText(props.goal.text);
+		}
 	}, [isLoading, props.goal]);
 
 	const editor: React.FormEventHandler = (e) => {
 		e.preventDefault();
+		if (props.goal.text === text) return setEdit(false);
+		setLoading((prev) => ({
+			...prev,
+			edit: true,
+		}));
 		dispatch(goalActions.updateGoal({ _id: props.goal._id, text: text }));
-		setEdit(false);
 	};
 	const remove: React.FormEventHandler = () => {
-		dispatch(goalActions.removeGoal(props.goal._id));
 		setLoading((prev) => ({
 			...prev,
 			delete: true,
 		}));
+		dispatch(goalActions.removeGoal(props.goal._id));
 	};
 	return (
 		<Card sx={{ width: "100%", bgcolor: "#eee" }}>
@@ -87,7 +104,7 @@ function GoalItem(props: { goal: IGoal }) {
 						}}
 					/>
 
-					<IconButton
+					<GoalButton
 						sx={{
 							color: "black",
 							borderRadius: "50%",
@@ -96,11 +113,10 @@ function GoalItem(props: { goal: IGoal }) {
 								bgcolor: `${edit ? "primary.main" : ""}`,
 							},
 						}}
+						icon={<EditIcon />}
+						loading={loading.edit}
 						onClick={() => setEdit((prev) => !prev)}
-					>
-						<EditIcon sx={{}} />
-					</IconButton>
-
+					/>
 					<GoalButton
 						color="#ff2424"
 						icon={<DeleteIcon />}
@@ -137,6 +153,7 @@ function GoalItem(props: { goal: IGoal }) {
 								width: edit ? "80%" : "100%",
 								"& fieldset": { border: `${!edit && "none"}` },
 							}}
+							inputProps={{ spellcheck: "false" }}
 						/>
 						{edit && (
 							<Button variant="contained" type={"submit"} sx={{ width: "15%" }}>
