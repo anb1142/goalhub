@@ -1,36 +1,35 @@
+import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
-import CloseIcon from "@mui/icons-material/Close";
 import {
 	Box,
 	Button,
+	ButtonProps,
 	Card,
 	CardContent,
 	CircularProgress,
 	IconButton,
-	SxProps,
 	TextField,
-	Theme,
 	Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IGoal } from "../services/goals/goal.type";
 import { goalActions, useGoals } from "../store/goals/goal.slice";
-import { useEffect, useState } from "react";
 
-type GoalButtonProps = {
+interface GoalButtonProps extends ButtonProps {
 	icon: React.ReactElement;
-	sx?: SxProps<Theme>;
-	color?: string;
+	btnColor?: string;
 	loading: boolean;
-	onClick: React.MouseEventHandler<HTMLButtonElement>;
-};
+}
 function GoalButton(props: GoalButtonProps) {
 	return (
 		<IconButton
-			sx={props.sx ? props.sx : { color: props.color }}
+			{...props}
+			sx={{ ...props.sx, color: props.btnColor || "primary" }}
 			onClick={props.onClick}
+			size={"small"}
 		>
 			{props.loading ? <CircularProgress size={24} color="inherit" /> : props.icon}
 		</IconButton>
@@ -72,7 +71,12 @@ function GoalItem(props: { goal: IGoal }) {
 		dispatch(goalActions.removeGoal(props.goal._id));
 	};
 	return (
-		<Card sx={{ width: "100%", bgcolor: "#eee" }}>
+		<Card
+			sx={{
+				width: "100%",
+				bgcolor: "#eee",
+			}}
+		>
 			<Box
 				sx={{
 					display: "flex",
@@ -92,7 +96,7 @@ function GoalItem(props: { goal: IGoal }) {
 				</Typography>
 				<Box sx={{ pt: 0.5 }}>
 					<GoalButton
-						color={!props.goal.done ? "green" : "gray"}
+						btnColor={!props.goal.done ? "green" : "gray"}
 						icon={!props.goal.done ? <DoneIcon /> : <CloseIcon />}
 						loading={loading.done}
 						onClick={() => {
@@ -106,8 +110,8 @@ function GoalItem(props: { goal: IGoal }) {
 
 					{!props.goal.done && (
 						<GoalButton
+							btnColor="black"
 							sx={{
-								color: "black",
 								borderRadius: "50%",
 								bgcolor: `${edit && "primary.main"}`,
 								"&:hover, &.Mui-focusVisible": {
@@ -120,51 +124,49 @@ function GoalItem(props: { goal: IGoal }) {
 						/>
 					)}
 					<GoalButton
-						color="#ff2424"
+						btnColor="#ff2424"
 						icon={<DeleteIcon />}
 						loading={loading.delete}
 						onClick={remove}
 					/>
 				</Box>
 			</Box>
-			<CardContent>
-				<Box
+			<CardContent
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "flex-start",
+					width: "100%",
+					py: 0,
+					pt: 0.5,
+					"&:last-child": {
+						pb: 1.25,
+					},
+				}}
+				component={"form"}
+				onSubmit={editor}
+			>
+				<TextField
+					multiline
+					id={`${edit && "outlined-uncontrolled"}`}
+					label={edit && "Edit"}
+					size="small"
+					value={text}
+					onChange={(e) => setText(e.target.value)}
 					sx={{
-						display: "flex",
-						justifyContent: "space-between",
+						width: edit ? "80%" : "100%",
+						"& fieldset": { border: `${!edit && "none"}` },
+						pointerEvents: `${!edit && "none"}`,
+						pb: 0,
+						mb: 0,
 					}}
-				>
-					<Box
-						component={"form"}
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "flex-start",
-							width: "100%",
-						}}
-						onSubmit={editor}
-					>
-						<TextField
-							multiline
-							id={`${edit && "outlined-uncontrolled"}`}
-							label={edit && "Edit"}
-							size="small"
-							value={text}
-							onChange={(e) => setText(e.target.value)}
-							sx={{
-								width: edit ? "80%" : "100%",
-								"& fieldset": { border: `${!edit && "none"}` },
-								pointerEvents: `${!edit && "none"}`,
-							}}
-							inputProps={{ spellcheck: "false" }}
-						/>
-						{edit && (
-							<Button variant="contained" type={"submit"} sx={{ width: "15%" }}>
-								Edit
-							</Button>
-						)}
-					</Box>
-				</Box>
+					inputProps={{ spellcheck: "false" }}
+				/>
+				{edit && (
+					<Button variant="contained" type={"submit"} sx={{ width: "15%" }}>
+						Edit
+					</Button>
+				)}
 			</CardContent>
 		</Card>
 	);
