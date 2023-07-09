@@ -108,9 +108,9 @@ function GoalItem(props: { goal: IGoal }) {
 						sx={{
 							color: "black",
 							borderRadius: "50%",
-							bgcolor: `${edit ? "primary.main" : ""}`,
+							bgcolor: `${edit && "primary.main"}`,
 							"&:hover, &.Mui-focusVisible": {
-								bgcolor: `${edit ? "primary.main" : ""}`,
+								bgcolor: `${edit && "primary.main"}`,
 							},
 						}}
 						icon={<EditIcon />}
@@ -144,8 +144,8 @@ function GoalItem(props: { goal: IGoal }) {
 					>
 						<TextField
 							multiline
-							id={edit ? "outlined-uncontrolled" : ""}
-							label={edit ? "Edit" : ""}
+							id={`${edit && "outlined-uncontrolled"}`}
+							label={edit && "Edit"}
 							size="small"
 							value={text}
 							onChange={(e) => setText(e.target.value)}

@@ -51,7 +51,7 @@ function Goals() {
 			{goals.length > 0 ? (
 				<>
 					<GoalList goals={todo} />
-					{done.length > 0 ? (
+					{done.length > 0 && (
 						<>
 							<Box sx={{ my: 2 }} onClick={() => setOpen((prev) => !prev)}>
 								<Typography
@@ -73,8 +73,6 @@ function Goals() {
 								<GoalList goals={done} />
 							</Collapse>
 						</>
-					) : (
-						""
 					)}
 				</>
 			) : !fetched && isLoading ? (
