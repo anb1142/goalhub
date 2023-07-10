@@ -1,13 +1,12 @@
 import { TextField, TextFieldProps } from "@mui/material";
-import { Control, Controller, FieldPath } from "react-hook-form";
-import { ILoginInput } from "../pages/Login";
+import { Control, Controller, FieldValues } from "react-hook-form";
 
-type ControllerProps = TextFieldProps & {
-	name: FieldPath<ILoginInput>;
-	control: Control<ILoginInput>;
+type IInputProps = TextFieldProps & {
+	name: string;
+	control: Control<FieldValues | any>;
 };
 
-function Input(props: ControllerProps) {
+function Input(props: IInputProps) {
 	return (
 		<Controller
 			name={props.name}
