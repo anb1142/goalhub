@@ -37,7 +37,6 @@ function Login() {
 		control,
 		handleSubmit,
 		formState: { errors },
-		reset,
 	} = useForm<ILoginInput>({
 		delayError: 300,
 		mode: "onChange",
@@ -47,7 +46,6 @@ function Login() {
 
 	const onSubmit: SubmitHandler<ILoginInput> = (data) => {
 		dispatch(authActions.login(data));
-		reset();
 	};
 	return (
 		<AlignCenter>
