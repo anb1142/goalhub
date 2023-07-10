@@ -1,9 +1,9 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { User } = require("../model/userModel");
-const asyncHandler = require("express-async-handler");
+import bcrypt from "bcrypt";
+import asyncHandler from "express-async-handler";
+import generateToken from "../../utils/generateToken";
+import User, { IUser } from "./user.model";
 
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
 	const { name, email, password } = req.body;
 	if (!name || !email || !password) {
 		res.status(400);
@@ -32,41 +32,28 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	res.status(201).json(userData(user));
 });
-
-const loginUser = asyncHandler(async (req, res) => {
+export const loginUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
 
 	const user = await User.findOne({ email });
 
 	if (!user || !(await bcrypt.compare(password, user.password))) {
 		res.status(400);
-		throw new Error("Invalid user data");
+		throw new Error("Invalid User Data");
 	}
 
 	res.status(201).json(userData(user));
 });
 
-const getMe = asyncHandler(async (req, res) => {
-	res.status(200).json(req.user);
+export const getMe = asyncHandler(async (req, res) => {
+	res.status(200).json(req.body.auth);
 });
 
-const userData = (user) => {
+const userData = (user: IUser) => {
 	return {
-		_id: user.id,
+		_id: user._id,
 		name: user.name,
 		email: user.email,
 		token: generateToken(user._id),
 	};
-};
-
-const generateToken = (id) => {
-	return jwt.sign({ id }, process.env.JWT_SECRET, {
-		expiresIn: "30d",
-	});
-};
-
-module.exports = {
-	loginUser,
-	registerUser,
-	getMe,
 };
