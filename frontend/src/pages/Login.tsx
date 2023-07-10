@@ -8,6 +8,7 @@ import AlignCenter from "../components/AlignCenter";
 import Input from "../components/Input";
 import SignForm from "../components/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
+
 const loginSchema = yup.object().shape({
 	email: yup.string().email("Must be a valid Email").required("Required"),
 	password: yup
@@ -41,11 +42,12 @@ function Login() {
 		delayError: 300,
 		mode: "onChange",
 		resolver: yupResolver(loginSchema),
+		defaultValues: { email: "", password: "" },
 	});
 
 	const onSubmit: SubmitHandler<ILoginInput> = (data) => {
-		reset();
 		dispatch(authActions.login(data));
+		reset();
 	};
 	return (
 		<AlignCenter>
@@ -65,8 +67,8 @@ function Login() {
 				<Input
 					name="password"
 					control={control}
-					label="Password"
 					type="password"
+					label="Password"
 					error={errors.password ? true : false}
 					helperText={errors.password?.message}
 				/>
