@@ -1,89 +1,100 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { TextField } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import * as yup from "yup";
 import AlignCenter from "../components/AlignCenter";
 import SignForm from "../components/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
-function Register() {
-	const [formData, setFormData] = useState({
-		name: "",
-		email: "",
-		password: "",
-		password2: "",
-	});
-	const { name, email, password, password2 } = formData;
+import Input from "../components/Input";
 
+const registerSchema = yup.object().shape({
+	name: yup.string().required("Required"),
+	email: yup.string().email("Must be a valid Email").required("Required"),
+	password: yup
+		.string()
+		.min(8, "Must be at least 8 characters")
+		.max(32, "Must be less than 32 characters")
+		.required("Required"),
+	password2: yup
+		.string()
+		.required("Required")
+		.oneOf([yup.ref("password")], "Passwords does not match"),
+});
+type IRegisterInput = {
+	name: string;
+	email: string;
+	password: string;
+	password2: string;
+};
+function Register() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<IRegisterInput>({
+		delayError: 300,
+		mode: "onChange",
+		resolver: yupResolver(registerSchema),
+	});
 
 	const { user, isLoading } = useAuth();
 	useEffect(() => {
 		if (!isLoading && user?.token) navigate("/");
 	}, [user, isLoading]);
 
-	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		setFormData((prev) => ({
-			...prev,
-			[e.target.name]: e.target.value,
-		}));
-	};
-
-	const onSubmit: React.FormEventHandler = (e) => {
-		e.preventDefault();
-		if (password !== password2) return toast.error(`Password do not match`);
-
-		const userData = {
-			name,
-			email,
-			password,
-		};
-		dispatch(authActions.register(userData));
+	const onSubmit: SubmitHandler<IRegisterInput> = (data) => {
+		dispatch(
+			authActions.register({
+				name: data.name,
+				email: data.email,
+				password: data.password,
+			})
+		);
 	};
 
 	return (
 		<AlignCenter>
 			<SignForm
 				name={"Register"}
-				onSubmit={onSubmit}
+				onSubmit={handleSubmit(onSubmit)}
 				reRouteText={"Already registered ? Login Here"}
 				reRouteTo="/login"
 			>
-				<TextField
-					margin="normal"
-					fullWidth
-					label="Name"
+				<Input
 					name="name"
-					value={name}
-					onChange={onChange}
+					control={control}
+					label="Name"
+					error={errors.name ? true : false}
+					helperText={errors.name?.message}
 				/>
-				<TextField
-					margin="normal"
-					fullWidth
-					label="Email Address"
+				<Input
 					name="email"
-					value={email}
-					onChange={onChange}
+					control={control}
+					label="Email Address"
+					error={errors.email ? true : false}
+					helperText={errors.email?.message}
 				/>
-				<TextField
-					margin="normal"
-					fullWidth
+				<Input
 					name="password"
+					control={control}
 					label="Password"
 					type="password"
-					value={password}
-					onChange={onChange}
+					error={errors.password ? true : false}
+					helperText={errors.password?.message}
 				/>
-				<TextField
-					margin="normal"
-					fullWidth
+				<Input
 					name="password2"
-					label="Confirm Password"
+					control={control}
+					label="Retype Password"
 					type="password"
-					value={password2}
-					onChange={onChange}
+					error={errors.password2 ? true : false}
+					helperText={errors.password2?.message}
 				/>
 			</SignForm>
 		</AlignCenter>
