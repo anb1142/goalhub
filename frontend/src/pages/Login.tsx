@@ -1,10 +1,27 @@
-import { TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import AlignCenter from "../components/AlignCenter";
+import Input from "../components/Input";
 import SignForm from "../components/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
+const loginSchema = yup.object().shape({
+	email: yup.string().email("Must be a valid Email").required("Required"),
+	password: yup
+		.string()
+		.min(8, "Must be at least 8 characters")
+		.max(32, "Must be less than 32 characters")
+		.required("Required"),
+});
+
+export type ILoginInput = {
+	email: string;
+	password: string;
+};
+
 function Login() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -15,43 +32,43 @@ function Login() {
 		if (!isLoading && user?.token) navigate("/");
 	}, [user, isLoading]);
 
-	const [formData, setFormData] = useState({ email: "", password: "" });
-	const { email, password } = formData;
-	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		setFormData((prev) => ({
-			...prev,
-			[e.target.name]: e.target.value,
-		}));
-	};
-	const onSubmit: React.FormEventHandler = (e) => {
-		e.preventDefault();
-		dispatch(authActions.login(formData));
-	};
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm<ILoginInput>({
+		delayError: 300,
+		mode: "onChange",
+		resolver: yupResolver(loginSchema),
+	});
 
+	const onSubmit: SubmitHandler<ILoginInput> = (data) => {
+		reset();
+		dispatch(authActions.login(data));
+	};
 	return (
 		<AlignCenter>
 			<SignForm
 				name={"Sign In"}
-				onSubmit={onSubmit}
+				onSubmit={handleSubmit(onSubmit)}
 				reRouteText={"Don't have an account? Register Here"}
 				reRouteTo="/register"
 			>
-				<TextField
-					margin="normal"
-					fullWidth
-					label="Email Address"
+				<Input
 					name="email"
-					value={email}
-					onChange={onChange}
+					control={control}
+					label="Email Address"
+					error={errors.email ? true : false}
+					helperText={errors.email?.message}
 				/>
-				<TextField
-					margin="normal"
-					fullWidth
+				<Input
 					name="password"
+					control={control}
 					label="Password"
 					type="password"
-					value={password}
-					onChange={onChange}
+					error={errors.password ? true : false}
+					helperText={errors.password?.message}
 				/>
 			</SignForm>
 		</AlignCenter>
