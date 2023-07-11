@@ -52,7 +52,7 @@ function GoalForm() {
 					px: { xs: 0 },
 				}}
 				variant="contained"
-				disabled={loading ? true : false}
+				disabled={loading}
 			>
 				{loading ? <CircularProgress size={27} color="inherit" /> : <>Add Goal</>}
 			</Button>
