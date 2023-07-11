@@ -8,8 +8,6 @@ import {
 	ButtonProps,
 	Card,
 	CardContent,
-	CircularProgress,
-	IconButton,
 	TextField,
 	Typography,
 } from "@mui/material";
@@ -17,24 +15,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IGoal } from "../services/goals/goal.type";
 import { goalActions, useGoals } from "../store/goals/goal.slice";
-
-interface GoalButtonProps extends ButtonProps {
-	icon: React.ReactElement;
-	btnColor?: string;
-	loading: boolean;
-}
-function GoalButton(props: GoalButtonProps) {
-	return (
-		<IconButton
-			{...props}
-			sx={{ ...props.sx, color: props.btnColor || "primary" }}
-			onClick={props.onClick}
-			size={"small"}
-		>
-			{props.loading ? <CircularProgress size={24} color="inherit" /> : props.icon}
-		</IconButton>
-	);
-}
+import GoalButton from "./GoalButton";
 
 function GoalItem(props: { goal: IGoal }) {
 	const dispatch = useDispatch();
