@@ -1,26 +1,45 @@
-import { Box, Button, CircularProgress, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import * as yup from "yup";
 import { goalActions, useGoals } from "../store/goals/goal.slice";
+import Input from "./Input";
+
+const goalFormSchema = yup.object().shape({
+	text: yup.string().required("Required"),
+});
+
+type IGoalFormInput = {
+	text: string;
+};
 
 function GoalForm() {
-	const [text, setText] = useState("");
+	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
 
-	const dispatch = useDispatch();
-	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		setText(e.target.value);
-	};
-	const onSubmit: React.FormEventHandler = (e) => {
-		e.preventDefault();
-		setLoading(true);
-		dispatch(goalActions.createGoal({ text }));
-		setText("");
-	};
+	const {
+		control,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<IGoalFormInput>({
+		delayError: 300,
+		mode: "onChange",
+		resolver: yupResolver(goalFormSchema),
+		defaultValues: { text: "" },
+	});
 	const { isLoading } = useGoals();
 	useEffect(() => {
 		if (!isLoading) setLoading(false);
 	}, [isLoading]);
+
+	const onSubmit: SubmitHandler<IGoalFormInput> = (data) => {
+		setLoading(true);
+		dispatch(goalActions.createGoal(data));
+		reset();
+	};
 	return (
 		<Box
 			sx={{
@@ -31,18 +50,18 @@ function GoalForm() {
 				py: 3,
 			}}
 			component={"form"}
-			onSubmit={onSubmit}
+			onSubmit={handleSubmit(onSubmit)}
 		>
-			<TextField
-				fullWidth
+			<Input
 				label="Text"
 				name="text"
-				value={text}
-				onChange={onChange}
 				size="small"
 				sx={{
 					width: { lg: "71%", md: "76%", sm: "78%", xs: "68%" },
 				}}
+				error={errors.text ? true : false}
+				helperText={errors.text?.message}
+				control={control}
 			/>
 			<Button
 				type="submit"
