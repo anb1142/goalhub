@@ -9,7 +9,7 @@ import {
 const API_URL = "/users/";
 
 const save_cookie = (name: string, data: ISignInResponseDto) => {
-	Cookies.set(name, JSON.stringify(data), { expires: 365, sameSite: "Strict" });
+	Cookies.set(name, JSON.stringify(data), { expires: 100, sameSite: "Strict" });
 };
 
 const login = async (
