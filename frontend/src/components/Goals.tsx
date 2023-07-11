@@ -1,39 +1,12 @@
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import {
-	Box,
-	Collapse,
-	Divider,
-	Skeleton,
-	Stack,
-	Typography,
-} from "@mui/material";
+import { Box, Collapse, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { TransitionGroup } from "react-transition-group";
-import { IGoals } from "../services/goals/goal.type";
 import { useAuth } from "../store/auth/auth.slice";
 import { goalActions, useGoals } from "../store/goals/goal.slice";
-import GoalItem from "./GoalItem";
-
-function GoalList(props: { goals: IGoals }) {
-	return (
-		<Stack sx={{ width: "100%" }}>
-			<TransitionGroup>
-				{props.goals.map((goal) => (
-					<Collapse
-						sx={{
-							mb: 2,
-						}}
-						key={goal._id}
-					>
-						<GoalItem goal={goal} />
-					</Collapse>
-				))}
-			</TransitionGroup>
-		</Stack>
-	);
-}
+import { GoalList } from "./GoalList";
+import GoalsSkeleton from "./GoalsSkeleton";
 
 function Goals() {
 	const dispatch = useDispatch();
@@ -78,19 +51,7 @@ function Goals() {
 					)}
 				</>
 			) : !fetched && isLoading ? (
-				<>
-					{[...Array(4).keys()].map((_) => (
-						<Skeleton
-							variant="rectangular"
-							sx={{
-								width: "100%",
-								mb: 2,
-							}}
-							animation="wave"
-							height={120}
-						/>
-					))}
-				</>
+				<GoalsSkeleton />
 			) : (
 				<Typography textAlign="center">You got no goals</Typography>
 			)}
