@@ -23,7 +23,7 @@ function SignForm(props: SignFormProps) {
 				justifyContent: "center",
 				alignItems: "center",
 				flexDirection: "column",
-				width: { lg: "48vh", md: "29vh", sm: "48vw", xs: "90vw" },
+				width: { lg: "420px", md: "420px", sm: "420px", xs: "90vw" },
 			}}
 		>
 			<Typography
