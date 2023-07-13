@@ -1,7 +1,7 @@
 import { Collapse, Stack } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import { IGoals } from "../../services/goals/goal.type";
-import GoalItem from "../atoms/GoalItem";
+import { IGoals } from "../../../services/goals/goal.type";
+import GoalItem from "../GoalItem";
 
 export function GoalList(props: { goals: IGoals }) {
 	return (

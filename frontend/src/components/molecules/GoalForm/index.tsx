@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import { goalActions, useGoals } from "../../store/goals/goal.slice";
-import Input from "../atoms/Input";
+import { useGoals, goalActions } from "../../../store/goals/goal.slice";
+import AppInput from "../../atoms/AppInput";
 
 const goalFormSchema = yup.object().shape({
 	text: yup.string().required("Required"),
@@ -52,7 +52,7 @@ const GoalForm = () => {
 			component={"form"}
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<Input
+			<AppInput
 				label="Text"
 				name="text"
 				size="small"

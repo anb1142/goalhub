@@ -4,10 +4,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import AlignCenter from "../components/templates/AlignCenter";
-import Input from "../components/atoms/Input";
-import SignForm from "../components/organisms/SignForm";
-import { authActions, useAuth } from "../store/auth/auth.slice";
+import { authActions, useAuth } from "../../store/auth/auth.slice";
+import AlignCenter from "../../components/templates/AlignCenter";
+import SignForm from "../../components/organisms/SignForm";
+import AppInput from "../../components/atoms/AppInput";
 
 const loginSchema = yup.object().shape({
 	email: yup.string().email("Must be a valid Email").required("Required"),
@@ -55,14 +55,14 @@ function Login() {
 				reRouteText={"Don't have an account? Register Here"}
 				reRouteTo="/register"
 			>
-				<Input
+				<AppInput
 					name="email"
 					control={control}
 					label="Email Address"
 					error={errors.email ? true : false}
 					helperText={errors.email?.message}
 				/>
-				<Input
+				<AppInput
 					name="password"
 					control={control}
 					type="password"

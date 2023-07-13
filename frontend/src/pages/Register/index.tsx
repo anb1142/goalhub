@@ -5,10 +5,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import AlignCenter from "../components/templates/AlignCenter";
-import SignForm from "../components/organisms/SignForm";
-import { authActions, useAuth } from "../store/auth/auth.slice";
-import Input from "../components/atoms/Input";
+import { authActions, useAuth } from "../../store/auth/auth.slice";
+import AlignCenter from "../../components/templates/AlignCenter";
+import SignForm from "../../components/organisms/SignForm";
+import AppInput from "../../components/atoms/AppInput";
 
 const registerSchema = yup.object().shape({
 	name: yup.string().required("Required"),
@@ -66,21 +66,21 @@ function Register() {
 				reRouteText={"Already registered ? Login Here"}
 				reRouteTo="/login"
 			>
-				<Input
+				<AppInput
 					name="name"
 					control={control}
 					label="Name"
 					error={errors.name ? true : false}
 					helperText={errors.name?.message}
 				/>
-				<Input
+				<AppInput
 					name="email"
 					control={control}
 					label="Email Address"
 					error={errors.email ? true : false}
 					helperText={errors.email?.message}
 				/>
-				<Input
+				<AppInput
 					name="password"
 					control={control}
 					label="Password"
@@ -88,7 +88,7 @@ function Register() {
 					error={errors.password ? true : false}
 					helperText={errors.password?.message}
 				/>
-				<Input
+				<AppInput
 					name="password2"
 					control={control}
 					label="Retype Password"

@@ -6,7 +6,7 @@ type IInputProps = TextFieldProps & {
 	control: Control<FieldValues | any>;
 };
 
-const Input = (props: IInputProps) => (
+const AppInput = (props: IInputProps) => (
 	<Controller
 		name={props.name}
 		control={props.control}
@@ -21,4 +21,4 @@ const Input = (props: IInputProps) => (
 	/>
 );
 
-export default Input;
+export default AppInput;

@@ -4,10 +4,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import authService from "../../services/auth/auth.service";
-import { authActions, useAuth } from "../../store/auth/auth.slice";
-import { goalActions } from "../../store/goals/goal.slice";
-import NavTo from "../atoms/NavTo";
+import authService from "../../../services/auth/auth.service";
+import { useAuth, authActions } from "../../../store/auth/auth.slice";
+import { goalActions } from "../../../store/goals/goal.slice";
+import NavTo from "../../atoms/NavTo";
 
 function Navbar() {
 	const navigate = useNavigate();
