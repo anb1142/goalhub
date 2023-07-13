@@ -3,10 +3,10 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Box, Collapse, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useAuth } from "../store/auth/auth.slice";
-import { goalActions, useGoals } from "../store/goals/goal.slice";
-import { GoalList } from "./GoalList";
-import GoalsSkeleton from "./GoalsSkeleton";
+import { useAuth } from "../../store/auth/auth.slice";
+import { goalActions, useGoals } from "../../store/goals/goal.slice";
+import { GoalList } from "../molecules/GoalList";
+import GoalsSkeleton from "../atoms/GoalsSkeleton";
 
 function Goals() {
 	const dispatch = useDispatch();

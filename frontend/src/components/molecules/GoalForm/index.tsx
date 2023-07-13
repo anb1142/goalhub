@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import { goalActions, useGoals } from "../store/goals/goal.slice";
-import Input from "./Input";
+import { goalActions, useGoals } from "../../store/goals/goal.slice";
+import Input from "../atoms/Input";
 
 const goalFormSchema = yup.object().shape({
 	text: yup.string().required("Required"),
@@ -15,7 +15,7 @@ type IGoalFormInput = {
 	text: string;
 };
 
-function GoalForm() {
+const GoalForm = () => {
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
 
@@ -77,6 +77,6 @@ function GoalForm() {
 			</Button>
 		</Box>
 	);
-}
+};
 
 export default GoalForm;

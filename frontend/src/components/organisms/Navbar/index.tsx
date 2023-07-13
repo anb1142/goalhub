@@ -4,19 +4,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import authService from "../services/auth/auth.service";
-import { authActions, useAuth } from "../store/auth/auth.slice";
-import { goalActions } from "../store/goals/goal.slice";
-
-function To(props: { to: string; icon: React.ReactElement; title: string }) {
-	return (
-		<NavLink to={props.to}>
-			<Button startIcon={props.icon} sx={{ color: "black" }}>
-				{props.title}
-			</Button>
-		</NavLink>
-	);
-}
+import authService from "../../services/auth/auth.service";
+import { authActions, useAuth } from "../../store/auth/auth.slice";
+import { goalActions } from "../../store/goals/goal.slice";
+import NavTo from "../atoms/NavTo";
 
 function Navbar() {
 	const navigate = useNavigate();
@@ -60,8 +51,8 @@ function Navbar() {
 						</Button>
 					) : (
 						<>
-							<To to="/login" icon={<LoginIcon />} title={"Login"} />
-							<To to="/register" icon={<PersonIcon />} title={"Register"} />
+							<NavTo to="/login" icon={<LoginIcon />} title={"Login"} />
+							<NavTo to="/register" icon={<PersonIcon />} title={"Register"} />
 						</>
 					)}
 				</Box>

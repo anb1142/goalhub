@@ -5,7 +5,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import {
 	Box,
 	Button,
-	ButtonProps,
 	Card,
 	CardContent,
 	TextField,
@@ -13,11 +12,11 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { IGoal } from "../services/goals/goal.type";
-import { goalActions, useGoals } from "../store/goals/goal.slice";
+import { IGoal } from "../../services/goals/goal.type";
+import { goalActions, useGoals } from "../../store/goals/goal.slice";
 import GoalButton from "./GoalButton";
 
-function GoalItem(props: { goal: IGoal }) {
+const GoalItem = (props: { goal: IGoal }) => {
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState({
 		done: false,
@@ -154,6 +153,6 @@ function GoalItem(props: { goal: IGoal }) {
 			</CardContent>
 		</Card>
 	);
-}
+};
 
 export default GoalItem;

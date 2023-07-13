@@ -1,5 +1,5 @@
 import { ButtonProps, CircularProgress, IconButton } from "@mui/material";
-import { useGoals } from "../store/goals/goal.slice";
+import { useGoals } from "../../../store/goals/goal.slice";
 
 interface GoalButtonProps extends ButtonProps {
 	icon: React.ReactElement;
@@ -7,7 +7,7 @@ interface GoalButtonProps extends ButtonProps {
 	loading: boolean;
 }
 
-function GoalButton(props: GoalButtonProps) {
+const GoalButton = (props: GoalButtonProps) => {
 	const { isLoading } = useGoals();
 	return (
 		<IconButton
@@ -23,5 +23,5 @@ function GoalButton(props: GoalButtonProps) {
 			{props.loading ? <CircularProgress size={24} color="inherit" /> : props.icon}
 		</IconButton>
 	);
-}
+};
 export default GoalButton;

@@ -5,10 +5,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import AlignCenter from "../components/AlignCenter";
-import SignForm from "../components/SignForm";
+import AlignCenter from "../components/templates/AlignCenter";
+import SignForm from "../components/organisms/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
-import Input from "../components/Input";
+import Input from "../components/atoms/Input";
 
 const registerSchema = yup.object().shape({
 	name: yup.string().required("Required"),

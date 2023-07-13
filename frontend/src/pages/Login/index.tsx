@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import AlignCenter from "../components/AlignCenter";
-import Input from "../components/Input";
-import SignForm from "../components/SignForm";
+import AlignCenter from "../components/templates/AlignCenter";
+import Input from "../components/atoms/Input";
+import SignForm from "../components/organisms/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
 
 const loginSchema = yup.object().shape({
