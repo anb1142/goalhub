@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { IGoal } from "../../services/goals/goal.type";
-import { goalActions, useGoals } from "../../store/goals/goal.slice";
-import GoalButton from "./GoalButton";
+import { IGoal } from "../../../services/goals/goal.type";
+import { goalActions, useGoals } from "../../../store/goals/goal.slice";
+import GoalButton from "../../atoms/GoalButton";
 
 const GoalItem = (props: { goal: IGoal }) => {
 	const dispatch = useDispatch();
