@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+buildCommand = "yarn && yarn --cwd frontend && yarn --cwd frontend run build"
+
+[deploy]
+startCommand = "yarn server"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "never"

@@ -7,6 +7,7 @@
 		"start": "node backend/server.ts",
 		"server": "nodemon backend/server.ts",
 		"client": "yarn --cwd frontend run dev",
+		"build": "yarn && yarn --cwd frontend && yarn --cwd frontend run build",
 		"dev": "concurrently \"yarn run client\" \"yarn run server\""
 	},
 	"repository": "https://github.com/anb1142/goalsetter.git",
