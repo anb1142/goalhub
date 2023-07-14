@@ -76,7 +76,7 @@ const GoalItem = (props: { goal: IGoal }) => {
 				</Typography>
 				<Box sx={{ pt: 0.5 }}>
 					<GoalButton
-						btnColor={!props.goal.done ? "green" : "gray"}
+						btncolor={!props.goal.done ? "green" : "gray"}
 						icon={!props.goal.done ? <DoneIcon /> : <CloseIcon />}
 						loading={loading.done}
 						onClick={() => {
@@ -90,7 +90,7 @@ const GoalItem = (props: { goal: IGoal }) => {
 
 					{!props.goal.done && (
 						<GoalButton
-							btnColor="black"
+							btncolor="black"
 							sx={{
 								borderRadius: "50%",
 								bgcolor: `${edit && "primary.main"}`,
@@ -104,7 +104,7 @@ const GoalItem = (props: { goal: IGoal }) => {
 						/>
 					)}
 					<GoalButton
-						btnColor="#ff2424"
+						btncolor="#ff2424"
 						icon={<DeleteIcon />}
 						loading={loading.delete}
 						onClick={remove}
@@ -139,7 +139,6 @@ const GoalItem = (props: { goal: IGoal }) => {
 						pb: 0,
 						mb: 0,
 					}}
-					inputProps={{ spellcheck: "false" }}
 				/>
 				{edit && (
 					<Button

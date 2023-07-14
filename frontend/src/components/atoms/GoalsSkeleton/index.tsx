@@ -2,7 +2,7 @@ import { Skeleton } from "@mui/material";
 
 const GoalsSkeleton = () => (
 	<>
-		{[...Array(4).keys()].map((_) => (
+		{[...Array(4).keys()].map((key) => (
 			<Skeleton
 				variant="rectangular"
 				sx={{
@@ -11,6 +11,7 @@ const GoalsSkeleton = () => (
 				}}
 				animation="wave"
 				height={120}
+				key={key}
 			/>
 		))}
 	</>

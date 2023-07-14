@@ -3,7 +3,7 @@ import { useGoals } from "../../../store/goals/goal.slice";
 
 interface GoalButtonProps extends ButtonProps {
 	icon: React.ReactElement;
-	btnColor?: string;
+	btncolor?: string;
 	loading: boolean;
 }
 
@@ -14,7 +14,7 @@ const GoalButton = (props: GoalButtonProps) => {
 			{...props}
 			sx={{
 				...props.sx,
-				color: props.btnColor || "primary",
+				color: props.btncolor || "primary",
 				pointerEvents: isLoading ? "none" : "auto",
 			}}
 			onClick={props.onClick}
