@@ -4,8 +4,7 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { ISignInResponseDto } from "../services/auth/auth.type";
 
-const baseUrl = "http://localhost:5000/api";
-
+const baseUrl = import.meta.env.DEV ? import.meta.env.VITE_BASE_URL : "/api/";
 const http = axios.create({
 	baseURL: baseUrl,
 });
