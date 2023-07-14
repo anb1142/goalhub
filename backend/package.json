@@ -1,14 +1,11 @@
 {
-	"name": "goalsetter",
+	"name": "goalsetter-api",
 	"version": "1.0.0",
-	"description": "Goals App",
-	"main": "server.ts",
+	"description": "Goalsetter API",
+	"main": "index.ts",
 	"scripts": {
-		"start": "node backend/server.ts",
-		"server": "nodemon backend/server.ts",
-		"client": "yarn --cwd frontend run dev",
-		"build": "yarn && yarn --cwd frontend && yarn --cwd frontend run build",
-		"dev": "concurrently \"yarn run client\" \"yarn run server\""
+		"start": "node index.ts",
+		"dev": "nodemon index.ts"
 	},
 	"repository": "https://github.com/anb1142/goalsetter.git",
 	"author": "Anuja Nimesh <anujanimesh@gmail.com>",
@@ -29,7 +26,6 @@
 		"@types/cors": "^2.8.13",
 		"@types/express": "^4.17.17",
 		"@types/node": "^20.4.1",
-		"concurrently": "^8.1.0",
 		"nodemon": "^2.0.22",
 		"ts-node-dev": "^2.0.0",
 		"tsc": "^2.0.4",
