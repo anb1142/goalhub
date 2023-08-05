@@ -1,13 +1,13 @@
 {
-	"name": "goalsetter-api",
+	"name": "goalhub-api",
 	"version": "1.0.0",
-	"description": "Goalsetter API",
-	"main": "index.ts",
+	"description": "goalhub server",
+	"main": "index.js",
 	"scripts": {
-		"start": "node index.ts",
+		"start": "ts-node index.ts",
 		"dev": "nodemon index.ts"
 	},
-	"repository": "https://github.com/anb1142/goalsetter.git",
+	"repository": "https://github.com/anb1142/goalhub.git",
 	"author": "Anuja Nimesh <anujanimesh@gmail.com>",
 	"license": "MIT",
 	"private": false,
@@ -27,8 +27,8 @@
 		"@types/express": "^4.17.17",
 		"@types/node": "^20.4.1",
 		"nodemon": "^2.0.22",
-		"ts-node-dev": "^2.0.0",
 		"tsc": "^2.0.4",
-		"typescript": "^5.1.6"
+		"typescript": "^5.1.6",
+		"ts-node": "^10.9.1"
 	}
 }

@@ -37,7 +37,7 @@ function Navbar() {
 				}}
 			>
 				<NavLink to={user?.token ? "/" : window.location.pathname}>
-					<Button sx={{ color: "black" }}>Goalsetter</Button>
+					<Button sx={{ color: "black" }}>goalhub</Button>
 				</NavLink>
 
 				<Box>
