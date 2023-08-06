@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongoose";
-import JWT_SECRET from "./TOKEN_SECRET";
+import JWT_SECRET from "./JWT_SECRET";
 
 export type TokenDataType = {
 	_id: ObjectId;
