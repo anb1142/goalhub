@@ -1,7 +1,6 @@
 FROM node:20-alpine
 
 ENV MONGO_URL "mongodb://goalhub-mongo:27017"
-ENV JWT_SECRET "JWT_SECRET"
 
 WORKDIR /usr/src/app
 
