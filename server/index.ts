@@ -16,6 +16,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/api/ping/", (req, res) => {
+	res.status(200).send("pong");
+});
+
 app.use("/api/users/", UserRoutes);
 app.use("/api/goals/", GoalsRoutes);
 
