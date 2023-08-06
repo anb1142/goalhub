@@ -11,12 +11,7 @@ RUN --mount=type=cache,target=/root/.yarn \
 
 COPY . .
 
-CMD ["yarn","dev"]
 EXPOSE 5173
 
-###
-# FROM nginx:1.25-alpine 
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# COPY --from=build /usr/src/app/dist/ /usr/share/nginx/html
+CMD ["yarn","dev"]
 
