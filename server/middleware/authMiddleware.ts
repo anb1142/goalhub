@@ -10,7 +10,13 @@ const protect = asyncHandler(async (req, res, next) => {
 		try {
 			const token = auth.split(" ")[1];
 			const decoded = jwt.verify(token, JWT_SECRET) as TokenDataType;
-			req.body.auth = await User.findById(decoded._id).select("-password");
+			const user = await User.findById(decoded._id).select("-password");
+			if (user === null) {
+				res.status(401);
+				throw new Error("Not authorized");
+			}
+			req.body.auth = user;
+
 			next();
 		} catch (error) {
 			res.status(401);

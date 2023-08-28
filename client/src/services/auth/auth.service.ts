@@ -20,6 +20,10 @@ const login = async (
 	return res;
 };
 
+const getMe = async (): Promise<ISignInResponseDto> => {
+	return await http.get(API_URL + `me`);
+};
+
 const register = async (
 	userData: ISignUpRequestDto
 ): Promise<ISignInResponseDto> => {
@@ -36,6 +40,7 @@ const authService = {
 	login,
 	logout,
 	register,
+	getMe,
 };
 
 export default authService;
