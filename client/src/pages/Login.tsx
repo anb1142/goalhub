@@ -4,10 +4,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { authActions, useAuth } from "../../store/auth/auth.slice";
-import AlignCenter from "../../components/templates/AlignCenter";
-import SignForm from "../../components/organisms/SignForm";
-import AppInput from "../../components/atoms/AppInput";
+import AlignCenter from "../components/presentations/AlignCenter";
+import AppInput from "../components/presentations/AppInput";
+import SignForm from "../components/presentations/SignForm";
+import { authActions, useAuth } from "../store/auth/auth.slice";
 
 const loginSchema = yup.object().shape({
 	email: yup.string().email("Must be a valid Email").required("Required"),

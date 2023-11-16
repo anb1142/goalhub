@@ -1,5 +1,5 @@
 import { ButtonProps, CircularProgress, IconButton } from "@mui/material";
-import { useGoals } from "../../../store/goals/goal.slice";
+import { useGoals } from "../../store/goals/goal.slice";
 
 interface GoalButtonProps extends ButtonProps {
 	icon: React.ReactElement;

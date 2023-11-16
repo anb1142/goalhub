@@ -1,10 +1,10 @@
 import { Container, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import GoalForm from "../../components/molecules/GoalForm";
-import Goals from "../../components/organisms/Goals";
-import AlignCenter from "../../components/templates/AlignCenter";
-import { useAuth } from "../../store/auth/auth.slice";
+import GoalFormContainer from "../components/containers/GoalFormContainer";
+import GoalsContainer from "../components/containers/GoalsContainer";
+import AlignCenter from "../components/presentations/AlignCenter";
+import { useAuth } from "../store/auth/auth.slice";
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -42,8 +42,8 @@ function Dashboard() {
 							width: { lg: "50vh", md: "45vw", sm: "60vw", xs: "92vw" },
 						}}
 					>
-						<GoalForm />
-						<Goals />
+						<GoalFormContainer />
+						<GoalsContainer />
 					</Container>
 				)}
 			</AlignCenter>

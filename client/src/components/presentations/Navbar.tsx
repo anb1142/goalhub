@@ -2,24 +2,16 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import authService from "../../../services/auth/auth.service";
-import { useAuth, authActions } from "../../../store/auth/auth.slice";
-import { goalActions } from "../../../store/goals/goal.slice";
-import NavTo from "../../atoms/NavTo";
+import { NavLink } from "react-router-dom";
+import { IUserState } from "../../store/auth/auth.type";
+import NavTo from "./NavTo";
 
-function Navbar() {
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+type INavbarProps = {
+	user: IUserState;
+	onLogout: React.MouseEventHandler;
+};
 
-	const { user } = useAuth();
-	const onLogout = () => {
-		authService.logout();
-		dispatch(authActions.reset());
-		dispatch(goalActions.reset());
-		navigate("/login");
-	};
+function Navbar(props: INavbarProps) {
 	return (
 		<AppBar
 			component="nav"
@@ -36,16 +28,16 @@ function Navbar() {
 					padding: { lg: "0 5vh", md: "0 10vw", sm: "0 6vw", xs: "0 1vw" },
 				}}
 			>
-				<NavLink to={user?.token ? "/" : window.location.pathname}>
+				<NavLink to={props.user?.token ? "/" : window.location.pathname}>
 					<Button sx={{ color: "black" }}>goalhub</Button>
 				</NavLink>
 
 				<Box>
-					{user ? (
+					{props.user?.token ? (
 						<Button
 							sx={{ color: "black" }}
 							startIcon={<LogoutIcon />}
-							onClick={onLogout}
+							onClick={props.onLogout}
 						>
 							Logout
 						</Button>
