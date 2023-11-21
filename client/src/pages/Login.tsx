@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import AlignCenter from "../components/presentations/AlignCenter";
 import AppInput from "../components/presentations/AppInput";
 import SignForm from "../components/presentations/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
@@ -48,30 +47,28 @@ function Login() {
 		dispatch(authActions.login(data));
 	};
 	return (
-		<AlignCenter>
-			<SignForm
-				name={"Sign In"}
-				onSubmit={handleSubmit(onSubmit)}
-				reRouteText={"Don't have an account? Register Here"}
-				reRouteTo="/register"
-			>
-				<AppInput
-					name="email"
-					control={control}
-					label="Email Address"
-					error={errors.email ? true : false}
-					helperText={errors.email?.message}
-				/>
-				<AppInput
-					name="password"
-					control={control}
-					type="password"
-					label="Password"
-					error={errors.password ? true : false}
-					helperText={errors.password?.message}
-				/>
-			</SignForm>
-		</AlignCenter>
+		<SignForm
+			name={"Sign In"}
+			onSubmit={handleSubmit(onSubmit)}
+			reRouteText={"Don't have an account? Register Here"}
+			reRouteTo="/register"
+		>
+			<AppInput
+				name="email"
+				control={control}
+				label="Email Address"
+				error={errors.email ? true : false}
+				helperText={errors.email?.message}
+			/>
+			<AppInput
+				name="password"
+				control={control}
+				type="password"
+				label="Password"
+				error={errors.password ? true : false}
+				helperText={errors.password?.message}
+			/>
+		</SignForm>
 	);
 }
 

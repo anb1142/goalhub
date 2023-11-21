@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import authService from "./services/auth/auth.service";
 import { useAuth } from "./store/auth/auth.slice";
 import http from "./utils/http";
+import AlignCenter from "./components/presentations/AlignCenter";
 function App() {
 	const { isLoading: userLoading, user } = useAuth();
 	const navigate = useNavigate();
@@ -34,26 +35,29 @@ function App() {
 	return (
 		<>
 			<NavbarContainer />
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<ProtectedRoute>
-							<Dashboard />
-						</ProtectedRoute>
-					}
-				></Route>
-				<Route
-					path="/profile"
-					element={
-						<ProtectedRoute>
-							<Profile />
-						</ProtectedRoute>
-					}
-				></Route>
-				<Route path="/login" element={<Login />}></Route>
-				<Route path="/register" element={<Register />}></Route>
-			</Routes>
+			<AlignCenter>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<ProtectedRoute>
+								<Dashboard />
+							</ProtectedRoute>
+						}
+					></Route>
+					<Route
+						path="/profile"
+						element={
+							<ProtectedRoute>
+								<Profile />
+							</ProtectedRoute>
+						}
+					></Route>
+					<Route path="/login" element={<Login />}></Route>
+					<Route path="/register" element={<Register />}></Route>
+				</Routes>
+			</AlignCenter>
+
 			{userLoading && <Spinner />}
 
 			<ToastContainer />

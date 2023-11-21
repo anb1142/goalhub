@@ -7,7 +7,6 @@ function AlignCenter(props: {
 }) {
 	return (
 		<Container
-			className="login"
 			sx={{
 				display: "flex",
 				justifyContent: "center",

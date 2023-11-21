@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import AlignCenter from "../components/presentations/AlignCenter";
 import AppInput from "../components/presentations/AppInput";
 import SignForm from "../components/presentations/SignForm";
 import { authActions, useAuth } from "../store/auth/auth.slice";
@@ -58,45 +57,43 @@ function Register() {
 	};
 
 	return (
-		<AlignCenter>
-			<SignForm
-				name={"Register"}
-				onSubmit={handleSubmit(onSubmit)}
-				reRouteText={"Already registered ? Login Here"}
-				reRouteTo="/login"
-			>
-				<AppInput
-					name="name"
-					control={control}
-					label="Name"
-					error={errors.name ? true : false}
-					helperText={errors.name?.message}
-				/>
-				<AppInput
-					name="email"
-					control={control}
-					label="Email Address"
-					error={errors.email ? true : false}
-					helperText={errors.email?.message}
-				/>
-				<AppInput
-					name="password"
-					control={control}
-					label="Password"
-					type="password"
-					error={errors.password ? true : false}
-					helperText={errors.password?.message}
-				/>
-				<AppInput
-					name="password2"
-					control={control}
-					label="Retype Password"
-					type="password"
-					error={errors.password2 ? true : false}
-					helperText={errors.password2?.message}
-				/>
-			</SignForm>
-		</AlignCenter>
+		<SignForm
+			name={"Register"}
+			onSubmit={handleSubmit(onSubmit)}
+			reRouteText={"Already registered ? Login Here"}
+			reRouteTo="/login"
+		>
+			<AppInput
+				name="name"
+				control={control}
+				label="Name"
+				error={errors.name ? true : false}
+				helperText={errors.name?.message}
+			/>
+			<AppInput
+				name="email"
+				control={control}
+				label="Email Address"
+				error={errors.email ? true : false}
+				helperText={errors.email?.message}
+			/>
+			<AppInput
+				name="password"
+				control={control}
+				label="Password"
+				type="password"
+				error={errors.password ? true : false}
+				helperText={errors.password?.message}
+			/>
+			<AppInput
+				name="password2"
+				control={control}
+				label="Retype Password"
+				type="password"
+				error={errors.password2 ? true : false}
+				helperText={errors.password2?.message}
+			/>
+		</SignForm>
 	);
 }
 
