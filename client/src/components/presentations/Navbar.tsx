@@ -34,13 +34,16 @@ function Navbar(props: INavbarProps) {
 
 				<Box>
 					{props.user?.token ? (
-						<Button
-							sx={{ color: "black" }}
-							startIcon={<LogoutIcon />}
-							onClick={props.onLogout}
-						>
-							Logout
-						</Button>
+						<>
+							<NavTo to="/profile" icon={<PersonIcon />} title={"Profile"} />
+							<Button
+								sx={{ color: "black" }}
+								startIcon={<LogoutIcon />}
+								onClick={props.onLogout}
+							>
+								Logout
+							</Button>
+						</>
 					) : (
 						<>
 							<NavTo to="/login" icon={<LoginIcon />} title={"Login"} />

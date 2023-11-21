@@ -1,18 +1,11 @@
 import { Container, Typography } from "@mui/material";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import GoalFormContainer from "../components/containers/GoalFormContainer";
 import GoalsContainer from "../components/containers/GoalsContainer";
 import AlignCenter from "../components/presentations/AlignCenter";
 import { useAuth } from "../store/auth/auth.slice";
 
 function Dashboard() {
-	const navigate = useNavigate();
-	const { user, isLoading } = useAuth();
-
-	useEffect(() => {
-		if (!isLoading && !user?.token) navigate("/login");
-	}, [user, isLoading]);
+	const { user } = useAuth();
 	return (
 		<>
 			<AlignCenter mt={12}>
