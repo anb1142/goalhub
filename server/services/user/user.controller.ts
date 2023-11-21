@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
 import generateToken from "../../utils/generateToken";
 import User, { IUser } from "./user.model";
+import Goal from "../goals/goals.model";
 
 export const registerUser = asyncHandler(async (req, res) => {
 	const { name, email, password } = req.body;
@@ -49,11 +50,16 @@ export const getMe = asyncHandler(async (req, res) => {
 	res.status(200).json(req.body.auth);
 });
 
-const userData = (user: IUser) => {
-	return {
-		_id: user._id,
-		name: user.name,
-		email: user.email,
-		token: generateToken(user._id),
-	};
-};
+export const deleteUser = asyncHandler(async (req, res) => {
+	const { _id } = req.body.auth;
+	await User.deleteOne({ _id });
+	await Goal.deleteMany({ user: _id });
+	res.sendStatus(200);
+});
+
+const userData = (user: IUser) => ({
+	_id: user._id,
+	name: user.name,
+	email: user.email,
+	token: generateToken(user._id),
+});
