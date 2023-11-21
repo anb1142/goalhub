@@ -7,6 +7,7 @@ import {
 } from "../../services/auth/auth.type";
 import { useAppSelector } from "../hooks";
 import { IAuthState } from "./auth.type";
+import authService from "../../services/auth/auth.service";
 
 const cookiedata = Cookies.get("user");
 const initialState: IAuthState = {
@@ -21,6 +22,7 @@ export const authSlice = createSlice({
 	reducers: {
 		// store reducers
 		reset: (state) => {
+			authService.logout();
 			Object.assign(state, {
 				user: null,
 				isLoading: false,
@@ -43,6 +45,7 @@ export const authSlice = createSlice({
 		// saga reducers
 		login: (_state, _action: PayloadAction<ISignInRequestDto>) => {},
 		register: (_state, _action: PayloadAction<ISignUpRequestDto>) => {},
+		remove: (_state) => {},
 	},
 });
 

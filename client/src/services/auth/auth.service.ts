@@ -36,8 +36,14 @@ const logout = () => {
 	Cookies.remove("user");
 };
 
+const remove = async (): Promise<boolean> => {
+	const res = await http.delete(API_URL);
+	return res.status === 200 ? true : false;
+};
+
 const authService = {
 	login,
+	remove,
 	logout,
 	register,
 	getMe,

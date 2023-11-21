@@ -7,14 +7,19 @@ type SignFormProps = {
 	children: React.ReactNode;
 	reRouteText?: string;
 	reRouteTo?: string;
+	submitText?: string;
+	autoComplete?: string;
+	buttonExtra?: React.ReactNode;
 	onSubmit: React.FormEventHandler<Element>;
 };
+
 function SignForm(props: SignFormProps) {
 	return (
 		<Box
 			component="form"
 			className="signform"
 			onSubmit={props.onSubmit}
+			autoComplete={props.autoComplete}
 			sx={{
 				borderRadius: "2vh",
 				border: "1px solid #ccc",
@@ -32,17 +37,29 @@ function SignForm(props: SignFormProps) {
 				variant="h5"
 				sx={{
 					pb: 2,
+					cursor: "default",
 				}}
 			>
 				{props.name}
 			</Typography>
 			{props.children}
-			<Button size="large" type="submit" variant="contained" sx={{ my: 3 }}>
-				{props.name}
-			</Button>
+			<Box
+				sx={{
+					width: "80%",
+					display: "flex",
+					justifyContent: "space-around",
+					mt: 3,
+				}}
+			>
+				<Button size="large" type="submit" variant="contained">
+					{props.submitText || props.name}
+				</Button>
+
+				{props.buttonExtra && props.buttonExtra}
+			</Box>
 
 			{props.reRouteTo && (
-				<Link component={RouterLink} to={props.reRouteTo}>
+				<Link sx={{ mt: 2 }} component={RouterLink} to={props.reRouteTo}>
 					<Typography>{props.reRouteText}</Typography>
 				</Link>
 			)}
