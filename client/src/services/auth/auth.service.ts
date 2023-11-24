@@ -4,6 +4,7 @@ import {
 	ISignInRequestDto,
 	ISignInResponseDto,
 	ISignUpRequestDto,
+	IUpdateRequestDto,
 } from "./auth.type";
 
 const API_URL = "/users/";
@@ -16,6 +17,13 @@ const login = async (
 	userData: ISignInRequestDto
 ): Promise<ISignInResponseDto> => {
 	const res = await http.post(API_URL + `login`, userData);
+	if (res.data) save_cookie("user", res.data);
+	return res;
+};
+const update = async (
+	userData: IUpdateRequestDto
+): Promise<ISignInResponseDto> => {
+	const res = await http.put(API_URL, userData);
 	if (res.data) save_cookie("user", res.data);
 	return res;
 };
@@ -42,6 +50,7 @@ const remove = async (): Promise<boolean> => {
 };
 
 const authService = {
+	update,
 	login,
 	remove,
 	logout,

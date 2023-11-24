@@ -46,6 +46,20 @@ export const loginUser = asyncHandler(async (req, res) => {
 	res.status(201).json(userData(user));
 });
 
+export const updateUser = asyncHandler(async (req, res) => {
+	const { _id } = req.body.auth;
+
+	const user = await User.findByIdAndUpdate(_id, req.body, {
+		new: true,
+	});
+	if (!user) {
+		res.status(400);
+		throw new Error("Invalid User Data");
+	}
+
+	res.status(200).json(userData(user));
+});
+
 export const getMe = asyncHandler(async (req, res) => {
 	res.status(200).json(req.body.auth);
 });

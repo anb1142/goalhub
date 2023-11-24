@@ -5,6 +5,7 @@ import {
 	ISignInRequestDto,
 	ISignInResponseDto,
 	ISignUpRequestDto,
+	IUpdateRequestDto,
 } from "../../services/auth/auth.type";
 import authService from "../../services/auth/auth.service";
 import { authActions } from "./auth.slice";
@@ -54,8 +55,26 @@ function* remove() {
 	}
 }
 
+function* update(action: PayloadAction<IUpdateRequestDto>) {
+	try {
+		yield put(authActions.startLoading());
+		const res: ISignInResponseDto = yield call(
+			authService.update,
+			action.payload
+		);
+		yield put(authActions.setUser(res.data));
+	} catch (error) {
+		if (error instanceof AxiosError && error.message) {
+			yield put(authActions.setMessage(error.message));
+		}
+	} finally {
+		yield put(authActions.stopLoading());
+	}
+}
+
 export default function* authWatcher() {
 	yield takeLatest(authActions.login, login);
 	yield takeLatest(authActions.register, register);
 	yield takeLatest(authActions.remove, remove);
+	yield takeLatest(authActions.update, update);
 }

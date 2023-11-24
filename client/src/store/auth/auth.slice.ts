@@ -4,6 +4,7 @@ import {
 	ISignInRequestDto,
 	ISignInResponseDto,
 	ISignUpRequestDto,
+	IUpdateRequestDto,
 } from "../../services/auth/auth.type";
 import { useAppSelector } from "../hooks";
 import { IAuthState } from "./auth.type";
@@ -44,6 +45,7 @@ export const authSlice = createSlice({
 
 		// saga reducers
 		login: (_state, _action: PayloadAction<ISignInRequestDto>) => {},
+		update: (_state, _action: PayloadAction<IUpdateRequestDto>) => {},
 		register: (_state, _action: PayloadAction<ISignUpRequestDto>) => {},
 		remove: (_state) => {},
 	},
